@@ -175,8 +175,9 @@ export default {
       }).then((data) => {
         console.log(data);
         if (data.status == 303){
-            alert(data.response)
+            alert("There is already an object with this id, please use a different one")
         }else {
+            alert("Album added");
             router.push("/album");
         }
       });
