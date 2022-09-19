@@ -5,6 +5,12 @@
       <h2>{{ title }}</h2>
       <form>
         <div class="row">
+            <div class="four columns">
+            <label for="titleInput">Id</label>
+            <input class="u-full-width" type="text" v-model="album.id" />
+          </div>
+        </div>
+        <div class="row">
           <div class="four columns">
             <label for="titleInput">Nombre</label>
             <input class="u-full-width" type="text" v-model="album.nombre" />
@@ -24,19 +30,35 @@
         </div>
         <div class="row">
           <div class="four columns">
-            <label for="emailInput">Artista</label>
+            <label v-if="show" for="emailInput">Artista</label>
+            <label v-else for="emailInput">Id Artista</label>
             <input
+              v-if="show"
               class="u-full-width"
               type="email"
               v-model="album.artista.nombre"
             />
+            <input
+              v-else
+              class="u-full-width"
+              type="email"
+              v-model="album.id_discografica"
+            />
           </div>
           <div class="four columns">
-            <label for="phoneInput">Discografica</label>
+            <label v-if="show" for="phoneInput">Discografica</label>
+            <label v-else for="phoneInput">Id Discografica</label>
             <input
+              v-if="show"
               class="u-full-width"
               type="tel"
               v-model="album.discografica.nombre"
+            />
+            <input
+              v-else
+              class="u-full-width"
+              type="tel"
+              v-model="album.id_discografica"
             />
           </div>
           <div class="four columns">
@@ -91,6 +113,12 @@ export default {
         nombre: "",
         descripcion: "",
         imagen: "",
+        artista: {
+          nombre: "",
+        },
+        discografica: {
+          nombre: "",
+        },
       },
       artist: {
         id: 0,
@@ -135,6 +163,7 @@ export default {
         method: "POST",
         body: JSON.stringify(this.album),
       }).then((data) => {
+        alert(data)
         router.push("/album");
       });
     },
@@ -144,6 +173,7 @@ export default {
         method: "PUT",
         body: JSON.stringify(this.album),
       }).then((data) => {
+        alert(data)
         router.push("/album");
       });
     },
