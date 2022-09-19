@@ -86,17 +86,21 @@ app.get("/:id", (req, res) => {
 app.post("/:id", (req, res) => {
   let index = artists.findIndex((i) => i.id == req.params.id);
   if (index == -1) res.status(404).send("Artist not found");
-  else {
-    artists.push(req.body);
-  }
+  
+  albums.forEach((artist) => {
+    if (artist.id == req.params.id) {
+      artist = req.body;
+    }
+  });
+
 });
 
 app.put("/", (req, res) => {
-  let index = artists.findIndex((i) => i.id == req.params.id);
+  let index = artists.findIndex((i) => i.id == req.body.id);
   if (index != -1) res.status(404).send("Artist already exits");
   else {
     artists.push(req.body);
-    res.status(200).json("Artist added");
+    res.status(200).send("Artist added");
   }
 });
 
@@ -109,6 +113,7 @@ app.delete("/:id", (req, res) => {
     albums_data.albums = albums_data.albums.filter(
       (album) => album.id_artista != req.params.id
     );
+    res.status(200).send("Artist deleted");
   }
 });
 
