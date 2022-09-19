@@ -15,9 +15,9 @@
       <td>{{publisher.pais}}</td>
       <td>
       <router-link class="button"
-        :to="'/discografica/show/'+artist.id">Show</router-link>
+        :to="'/discografica/show/'+publisher.id">Show</router-link>
       <router-link class="button"
-        :to="'/discografica/edit/'+artist.id">Edit</router-link>
+        :to="'/discografica/edit/'+publisher.id">Edit</router-link>
       <a class="button"
         v-on:click="deletePublisher(discografica.id)">Delete</a>
       </td>
