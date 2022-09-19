@@ -42,7 +42,7 @@
               v-else
               class="u-full-width"
               type="email"
-              v-model="album.id_discografica"
+              v-model="album.id_artista"
             />
           </div>
           <div class="four columns">
@@ -163,7 +163,7 @@ export default {
         method: "POST",
         body: JSON.stringify(this.album),
       }).then((data) => {
-        alert(data)
+        alert(json.stringify(data))
         router.push("/album");
       });
     },
@@ -173,7 +173,7 @@ export default {
         method: "PUT",
         body: JSON.stringify(this.album),
       }).then((data) => {
-        alert(data)
+        alert(json.stringify(data))
         router.push("/album");
       });
     },
