@@ -167,7 +167,7 @@ export default {
         method: "POST",
         body: JSON.stringify(this.album),
       }).then((data) => {
-        alert(json.stringify(data));
+        alert(JSON.stringify(data));
         this.router.push("/album");
       });
     },
