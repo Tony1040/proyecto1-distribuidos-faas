@@ -19,7 +19,7 @@
       <router-link class="button"
         :to="'/discografica/edit/'+publisher.id">Edit</router-link>
       <a class="button"
-        v-on:click="deletePublisher(discografica.id)">Delete</a>
+        v-on:click="deletePublisher(publisher.id)">Delete</a>
       </td>
       </tr></tbody>
      </table>
