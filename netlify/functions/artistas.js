@@ -88,6 +88,7 @@ app.post("/:id", (req, res) => {
   if (index == -1) res.status(404).send("Artist not found");
   
   artists[index] = req.body
+  res.status(200).send("Artist updated successfully");
 });
 
 app.put("/", (req, res) => {

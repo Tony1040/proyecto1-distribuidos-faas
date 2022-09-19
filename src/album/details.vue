@@ -159,16 +159,16 @@ export default {
     //   const router = useRoute();
     //   var id = router.params.id;
       
-    //   delete this.album["artista"];
-    //   delete this.album["discografica"];
+      delete this.album["artista"];
+      delete this.album["discografica"];
 
       fetch("/.netlify/functions/albums/" + this.album.id, {
         headers: { "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify(this.album),
       }).then((data) => {
-        alert(json.stringify(data))
-        router.push("/album");
+        alert(json.stringify(data));
+        this.router.push("/album");
       });
     },
     createAlbum: function () {

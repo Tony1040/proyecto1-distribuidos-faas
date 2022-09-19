@@ -107,6 +107,7 @@ app.post("/:id", (req, res) => {
   if (index == -1) res.status(404).send("Discografica no existe");
 
   publishers[i] = req.body;
+  res.status(200).send("Discografica actualizada existosamente");
 });
 
 app.put("/", (req, res) => {

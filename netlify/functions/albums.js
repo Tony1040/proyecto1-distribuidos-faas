@@ -199,6 +199,7 @@ app.post("/:id", (req, res) => {
   if (index == -1) res.status(404).send("Album not found");
 
   albums[index] = req.body
+  res.status(200).send("Album updated successfully");
 });
 
 app.put("/", (req, res) => {
