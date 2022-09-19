@@ -95,7 +95,8 @@ app.put("/", (req, res) => {
   let index = artists.findIndex((i) => i.id == req.params.id);
   if (index != -1) res.status(404).send("Artist already exits");
   else {
-    artists[index] = req.body;
+    artists.push(req.body);
+    res.status(200).json("Artist added");
   }
 });
 
