@@ -156,13 +156,13 @@ export default {
         });
     },
     updateAlbum: function () {
-      const router = useRoute();
-      var id = router.params.id;
-
+    //   const router = useRoute();
+    //   var id = router.params.id;
+      
     //   delete this.album["artista"];
     //   delete this.album["discografica"];
 
-      fetch("/.netlify/functions/albums/" + id, {
+      fetch("/.netlify/functions/albums/" + this.album.id, {
         headers: { "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify(this.album),
