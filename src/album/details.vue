@@ -24,12 +24,20 @@
         </div>
         <div class="row">
           <div class="four columns">
-            <label for="emailInput">Author</label>
-            <input class="u-full-width" type="email" v-model="author.name" />
+            <label for="emailInput">Artista</label>
+            <input
+              class="u-full-width"
+              type="email"
+              v-model="album.artista.name"
+            />
           </div>
           <div class="four columns">
             <label for="phoneInput">Discografica</label>
-            <input class="u-full-width" type="tel" v-model="publisher.name" />
+            <input
+              class="u-full-width"
+              type="tel"
+              v-model="album.discografica.name"
+            />
           </div>
           <div class="four columns">
             <label for="phoneInput">Generos</label>
@@ -136,19 +144,8 @@ export default {
       })
         .then((response) => response.json())
         .then((result) => {
+          console.log("This is the result", result);
           this.album = result;
-
-          fetch("/.netlify/functions/artists/" + album.id_artista, {
-            headers: { Accept: "application/json" },
-          })
-            .then((response) => response.json())
-            .then((result) => (this.artist = result));
-
-          fetch("/.netlify/functions/discograficas/" + album.id_discografica, {
-            headers: { Accept: "application/json" },
-          })
-            .then((response) => response.json())
-            .then((result) => (this.publisher = result));
         });
     },
     updateAlbum: function () {
@@ -168,7 +165,7 @@ export default {
         method: "PUT",
         body: JSON.stringify(this.album),
       }).then((data) => {
-        router.push("/book");
+        router.push("/album");
       });
     },
   },
