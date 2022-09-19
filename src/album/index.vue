@@ -52,7 +52,7 @@ export default {
      deleteAlbum(id) {
        fetch('/.netlify/functions/albums/'+id,
          { headers: {'Content-Type': 'application/json'},
-   	       method: 'POST',
+   	       method: 'DELETE',
            body: JSON.stringify({'_method':'DELETE'})})
          .then((result) => {
             this.allAlbums();
