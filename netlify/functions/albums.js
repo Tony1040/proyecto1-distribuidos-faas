@@ -4,6 +4,7 @@ const serverless = require("serverless-http");
 const exp = express();
 const bodyParser = require("body-parser");
 const publisher_data = require("./discograficas");
+const artist_data = require("./artistas");
 
 let albums = [
   {
@@ -169,6 +170,12 @@ let albums = [
 
 const app = express.Router();
 app.get("/", (req, res) => {
+  albums.forEach((album) => {
+    album.discografica = publisher_data.publishers.find(
+      (i) => i.id == album.id_discografica
+    );
+    album.artista = artist_data.artists.find((i) => i.id == album.id_artista);
+  });
   res.json(albums);
 });
 
@@ -176,8 +183,14 @@ app.get("/:id", (req, res) => {
   let album = albums.find((i) => i.id == req.params.id);
   if (album == undefined) res.status(404).send("Album not found");
 
-  let publisher = publisher_data.publishers.find((i) => i.id == album.id_discografica);
-  album.publisher = publisher;
+  let publisher = publisher_data.publishers.find(
+    (i) => i.id == album.id_discografica
+  );
+  let artist = artist_data.artists.find((i) => i.id == album.id_artista);
+
+  album.discografica = publisher;
+  album.artista = artist;
+
   res.json(album);
 });
 
@@ -209,3 +222,4 @@ exp.use(bodyParser.json());
 exp.use("/.netlify/functions/albums", app);
 module.exports = exp;
 module.exports.handler = serverless(exp);
+module.exports = { albums: albums };

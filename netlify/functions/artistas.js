@@ -3,6 +3,8 @@ const express = require("express");
 const serverless = require("serverless-http");
 const exp = express();
 const bodyParser = require("body-parser");
+let albums_data = require("./albums");
+
 let artists = [
   {
     id: 1,
@@ -62,14 +64,25 @@ let artists = [
 ];
 
 const app = express.Router();
+
 app.get("/", (req, res) => {
+  artists.forEach((artist) => {
+    artist.albums = albums_data.albums.filter(
+      (album) => album.id_artista == artist.id
+    );
+  });
   res.json(artists);
 });
+
 app.get("/:id", (req, res) => {
   let artist = artists.find((i) => i.id == req.params.id);
   if (artist == undefined) res.status(404).send("Artist not found");
-  else res.json(artist);
+  artist.albums = albums_data.albums.filter(
+    (album) => album.id_artista === artist.id
+  );
+  res.json(artist);
 });
+
 app.post("/:id", (req, res) => {
   let index = artists.findIndex((i) => i.id == req.params.id);
   if (index != -1) res.status(404).send("Artist already exits");
@@ -77,6 +90,7 @@ app.post("/:id", (req, res) => {
     artists.push(req.body);
   }
 });
+
 app.put("/", (req, res) => {
   let index = artists.findIndex((i) => i.id == req.params.id);
   if (index == -1) res.status(404).send("Artist not found");
@@ -84,14 +98,22 @@ app.put("/", (req, res) => {
     artists[index] = req.body;
   }
 });
+
 app.delete("/:id", (req, res) => {
   let index = artists.findIndex((i) => i.id == req.params.id);
   if (index == -1) return resolve();
   else {
     artists = artists.filter((i) => i.id != req.params.id);
+
+    albums_data.albums = albums_data.albums.filter(
+      (album) => album.id_artista != req.params.id
+    );
   }
 });
+
 exp.use(bodyParser.json());
 exp.use("/.netlify/functions/artistas", app);
 module.exports = exp;
 module.exports.handler = serverless(exp);
+
+module.exports = { artists: artists };
