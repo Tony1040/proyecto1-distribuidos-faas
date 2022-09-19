@@ -12,7 +12,7 @@ let albums = [
     id_artista: 1,
     id_discografica: 1,
     fecha_publicacion: "1959",
-    genero: "Modal Jazz",
+    generos: "Modal Jazz",
     duracion: "45:44",
     nombre: "Kind of Blue",
     descripcion:

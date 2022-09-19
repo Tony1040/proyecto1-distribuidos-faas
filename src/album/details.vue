@@ -63,7 +63,7 @@
           </div>
           <div class="four columns">
             <label for="phoneInput">Generos</label>
-            <input class="u-full-width" type="tel" v-model="album.genero" />
+            <input class="u-full-width" type="tel" v-model="album.generos" />
           </div>
         </div>
 
@@ -108,7 +108,7 @@ export default {
         id_artista: 0,
         id_discografica: 0,
         fecha_publicacion: "",
-        genero: "",
+        generos: "",
         duracion: "",
         nombre: "",
         descripcion: "",
@@ -156,8 +156,12 @@ export default {
         });
     },
     updateAlbum: function () {
-      const route = useRoute();
-      var id = route.params.id;
+      const router = useRoute();
+      var id = router.params.id;
+      
+      delete this.album["artista"];
+      delete this.album["discografica"];
+
       fetch("/.netlify/functions/albums/" + id, {
         headers: { "Content-Type": "application/json" },
         method: "POST",
@@ -168,6 +172,7 @@ export default {
       });
     },
     createAlbum: function () {
+    const router = useRoute();
       fetch("/.netlify/functions/albums", {
         headers: { "Content-Type": "application/json" },
         method: "PUT",
