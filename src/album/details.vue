@@ -173,8 +173,12 @@ export default {
         method: "PUT",
         body: JSON.stringify(this.album),
       }).then((data) => {
-        alert(json.stringify(data))
-        router.push("/album");
+        console.log(data);
+        if (data.status == 303){
+            alert(data.response)
+        }else {
+            router.push("/album");
+        }
       });
     },
   },

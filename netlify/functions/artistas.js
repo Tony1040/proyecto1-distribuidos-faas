@@ -97,7 +97,7 @@ app.post("/:id", (req, res) => {
 
 app.put("/", (req, res) => {
   let index = artists.findIndex((i) => i.id == req.body.id);
-  if (index != -1) res.status(404).send("Artist already exits");
+  if (index != -1) res.status(303).send("Artist already exits");
   else {
     artists.push(req.body);
     res.status(200).send("Artist added");
