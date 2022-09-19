@@ -50,7 +50,7 @@ export default {
      deletePublisher(id) {
        fetch('/.netlify/functions/discograficas/'+id,
          { headers: {'Content-Type': 'application/json'},
-   	       method: 'POST',
+   	       method: 'DELETE',
            body: JSON.stringify({'_method':'DELETE'})})
          .then((result) => {
             this.allPublishers();
