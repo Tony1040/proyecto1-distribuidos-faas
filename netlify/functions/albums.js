@@ -169,11 +169,23 @@ const app = express.Router();
 app.get("/", (req, res) => {
   res.json(albums);
 });
+
 app.get("/:id", (req, res) => {
   let album = albums.find((i) => i.id == req.params.id);
   if (album == undefined) res.status(404).send("Album not found");
-  else res.json(album);
+
+  let publisher = {};
+  fetch("/.netlify/functions/discograficas/" + album.id_discografica, {
+    headers: { "Content-Type": "application/json" },
+    method: "GET",
+  }).then((result) => {
+    console.log(result)
+    publisher = result;
+    album["publisher"] = publisher
+    res.json(album);
+  });
 });
+
 app.post("/:id", (req, res) => {
   let index = albums.findIndex((i) => i.id == req.params.id);
   if (index != -1) res.status(404).send("Album already exits");
@@ -181,6 +193,7 @@ app.post("/:id", (req, res) => {
     albums.push(req.body);
   }
 });
+
 app.put("/", (req, res) => {
   let index = albums.findIndex((i) => i.id == req.params.id);
   if (index == -1) res.status(404).send("Album not found");
@@ -188,6 +201,7 @@ app.put("/", (req, res) => {
     albums[index] = req.body;
   }
 });
+
 app.delete("/:id", (req, res) => {
   let index = albums.findIndex((i) => i.id == req.params.id);
   if (index == -1) return resolve();
@@ -195,6 +209,7 @@ app.delete("/:id", (req, res) => {
     albums = albums.filter((i) => i.id != req.params.id);
   }
 });
+
 exp.use(bodyParser.json());
 exp.use("/.netlify/functions/albums", app);
 module.exports = exp;

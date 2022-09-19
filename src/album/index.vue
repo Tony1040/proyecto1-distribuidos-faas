@@ -1,5 +1,5 @@
 
-<!-- src/bookIndex.vue -->
+<!-- src/albumIndex.vue -->
 <template>
   <div class="row">
    <div style="margin-top: 5%">
@@ -8,8 +8,7 @@
       <tr><th>Nombre</th><th>Genero</th><th>Fecha publicacion</th>
           <th>Duracion</th><th>Discografica</th><th>Descripcion</th></tr>
       </thead><tbody>
-      <tr v-for='album in albums'><td>{{album.nombre}}</td>
-      <td>{{album.nombre}}</td>
+      <tr v-for='album in albums' :key="album.id"><td>{{album.nombre}}</td>
       <td>{{album.genero}}</td>
       <td>{{album.fecha_publicacion}}</td>
       <td>{{album.duracion}}</td>
@@ -45,17 +44,17 @@ export default {
         { headers: {'Accept': 'application/json'}})
         .then((response) => response.json())
         .then((result) => {
-            console.log(result);
+          console.log(result);
           this.albums = result;
         })
      },
      deleteAlbum(id) {
-       fetch('/.netlify/functions/books/'+id,
+       fetch('/.netlify/functions/albums/'+id,
          { headers: {'Content-Type': 'application/json'},
    	       method: 'POST',
            body: JSON.stringify({'_method':'DELETE'})})
          .then((result) => {
-          this.allAlbums();
+            this.allAlbums();
           }
         )
      }
