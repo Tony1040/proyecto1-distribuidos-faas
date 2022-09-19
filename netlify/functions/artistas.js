@@ -116,4 +116,4 @@ exp.use("/.netlify/functions/artistas", app);
 module.exports = exp;
 module.exports.handler = serverless(exp);
 
-module.exports = { artists: artists };
+module.exports.artists = artists;

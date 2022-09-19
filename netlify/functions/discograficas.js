@@ -134,4 +134,4 @@ exp.use("/.netlify/functions/discograficas", app);
 module.exports = exp;
 module.exports.handler = serverless(exp);
 
-module.exports = { publishers: publishers };
+module.exports.publishers =  publishers;

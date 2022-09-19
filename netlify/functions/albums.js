@@ -222,4 +222,4 @@ exp.use(bodyParser.json());
 exp.use("/.netlify/functions/albums", app);
 module.exports = exp;
 module.exports.handler = serverless(exp);
-module.exports = { albums: albums };
+module.exports.albums = albums;
