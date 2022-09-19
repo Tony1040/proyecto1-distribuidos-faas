@@ -6,13 +6,14 @@
      <h2>{{title}}</h2>
      <table><thead>
       <tr><th>Nombre</th><th>Genero</th><th>Fecha publicacion</th>
-          <th>Duracion</th><th>Discografica</th><th>Descripcion</th></tr>
+          <th>Duracion</th><th>Discografica</th><th>Discografica</th><th>Descripcion</th></tr>
       </thead><tbody>
       <tr v-for='album in albums' :key="album.id"><td>{{album.nombre}}</td>
       <td>{{album.genero}}</td>
       <td>{{album.fecha_publicacion}}</td>
       <td>{{album.duracion}}</td>
-      <td>{{album.id_discografica}}</td>
+      <td>{{album.discografica.nombre}}</td>
+      <td>{{album.artista.nombre}}</td>
       <td>{{album.descripcion}}</td>
       <td>
       <router-link class="button"
