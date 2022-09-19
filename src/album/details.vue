@@ -94,9 +94,35 @@ export default {
   data: function () {
     return {
       title: "Información de album",
-      album: {},
-      artist: {},
-      publisher: {},
+      album: {
+        id: 0,
+        id_artista: 0,
+        id_discografica: 0,
+        fecha_publicacion: "",
+        genero: "",
+        duracion: "",
+        nombre: "",
+        descripcion: "",
+        imagen: "",
+      },
+      artist: {
+        id: 0,
+        nombre: "",
+        fecha_nacimiento: "",
+        fallecimiento: "",
+        origen: "",
+        instrumentos: "",
+        imagen: "",
+      },
+      publisher: {
+        id: 0,
+        nombre: "",
+        fundacion: "",
+        fundador: "",
+        director: "",
+        pais: "",
+        imagen: "",
+      },
     };
   },
   created() {
