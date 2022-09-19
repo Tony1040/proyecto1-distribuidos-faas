@@ -5,7 +5,7 @@
       <h2>{{ title }}</h2>
       <form>
         <div class="row">
-            <div class="four columns">
+          <div class="four columns">
             <label for="titleInput">Id</label>
             <input class="u-full-width" type="text" v-model="album.id" />
           </div>
@@ -156,9 +156,9 @@ export default {
         });
     },
     updateAlbum: function () {
-    //   const router = useRoute();
-    //   var id = router.params.id;
-      
+      //   const router = useRoute();
+      //   var id = router.params.id;
+
       delete this.album["artista"];
       delete this.album["discografica"];
 
@@ -167,23 +167,30 @@ export default {
         method: "POST",
         body: JSON.stringify(this.album),
       }).then((data) => {
-        alert(JSON.stringify(data));
-        this.router.push("/album");
+        if (data.status != 200) {
+            console.log(data);
+          alert(JSON.stringify(data));
+        } else {
+          alert("Album updated correctly");
+          this.$router.push("/album");
+        }
       });
     },
     createAlbum: function () {
-    const router = useRoute();
+      const router = useRoute();
       fetch("/.netlify/functions/albums", {
         headers: { "Content-Type": "application/json" },
         method: "PUT",
         body: JSON.stringify(this.album),
       }).then((data) => {
         console.log(data);
-        if (data.status == 303){
-            alert("There is already an object with this id, please use a different one")
-        }else {
-            alert("Album added");
-            router.push("/album");
+        if (data.status == 303) {
+          alert(
+            "There is already an object with this id, please use a different one"
+          );
+        } else {
+          alert("Album added");
+          this.$router.push("/album");
         }
       });
     },
