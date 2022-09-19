@@ -1,4 +1,5 @@
 "use strict";
+import { publishers } from "./discograficas.js";
 const express = require("express");
 const serverless = require("serverless-http");
 const exp = express();
@@ -174,16 +175,9 @@ app.get("/:id", (req, res) => {
   let album = albums.find((i) => i.id == req.params.id);
   if (album == undefined) res.status(404).send("Album not found");
 
-  let publisher = {};
-  fetch("/.netlify/functions/discograficas/" + album.id_discografica, {
-    headers: { "Content-Type": "application/json" },
-    method: "GET",
-  }).then((result) => {
-    console.log(result)
-    publisher = result;
-    album["publisher"] = publisher
-    res.json(album);
-  });
+  let publisher = publishers.find((i) => i.id == album.id_discograficaid);
+  album.publisher = publisher;
+  res.json(album);
 });
 
 app.post("/:id", (req, res) => {

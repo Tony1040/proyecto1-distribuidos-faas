@@ -3,7 +3,7 @@ const express = require("express");
 const serverless = require("serverless-http");
 const exp = express();
 const bodyParser = require("body-parser");
-let publishers = [
+export let publishers = [
   {
     id: 1,
     nombre: "Columbia Records",
