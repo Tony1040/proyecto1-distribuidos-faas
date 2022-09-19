@@ -1,9 +1,10 @@
 "use strict";
-import { publishers } from "./discograficas.js";
 const express = require("express");
 const serverless = require("serverless-http");
 const exp = express();
 const bodyParser = require("body-parser");
+const publisher_data = require("./discograficas");
+
 let albums = [
   {
     id: 1,
@@ -175,7 +176,7 @@ app.get("/:id", (req, res) => {
   let album = albums.find((i) => i.id == req.params.id);
   if (album == undefined) res.status(404).send("Album not found");
 
-  let publisher = publishers.find((i) => i.id == album.id_discografica);
+  let publisher = publisher_data.publishers.find((i) => i.id == album.id_discografica);
   album.publisher = publisher;
   res.json(album);
 });

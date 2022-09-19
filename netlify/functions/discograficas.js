@@ -3,7 +3,7 @@ const express = require("express");
 const serverless = require("serverless-http");
 const exp = express();
 const bodyParser = require("body-parser");
-export let publishers = [
+let publishers = [
   {
     id: 1,
     nombre: "Columbia Records",
@@ -112,3 +112,5 @@ exp.use(bodyParser.json());
 exp.use("/.netlify/functions/discograficas", app);
 module.exports = exp;
 module.exports.handler = serverless(exp);
+
+module.exports = { publishers: publishers };
