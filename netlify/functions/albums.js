@@ -197,12 +197,8 @@ app.get("/:id", (req, res) => {
 app.post("/:id", (req, res) => {
   let index = albums.findIndex((i) => i.id == req.params.id);
   if (index == -1) res.status(404).send("Album not found");
- 
-  albums.forEach((album) => {
-    if (album.id == req.params.id) {
-      album = req.body;
-    }
-  });
+
+  albums[index] = req.body
 });
 
 app.put("/", (req, res) => {
@@ -219,7 +215,7 @@ app.delete("/:id", (req, res) => {
   if (index == -1) return resolve();
   else {
     albums = albums.filter((i) => i.id != req.params.id);
-    res.status(404).send("Album deleted")
+    res.status(404).send("Album deleted");
   }
 });
 

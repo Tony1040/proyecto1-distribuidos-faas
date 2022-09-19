@@ -106,11 +106,7 @@ app.post("/:id", (req, res) => {
   let index = publishers.findIndex((i) => i.id == req.params.id);
   if (index == -1) res.status(404).send("Discografica no existe");
 
-  publishers.forEach((publisher) => {
-    if (publisher.id == req.params.id) {
-      publisher = req.body;
-    }
-  });
+  publishers[i] = req.body;
 });
 
 app.put("/", (req, res) => {

@@ -87,12 +87,7 @@ app.post("/:id", (req, res) => {
   let index = artists.findIndex((i) => i.id == req.params.id);
   if (index == -1) res.status(404).send("Artist not found");
   
-  albums.forEach((artist) => {
-    if (artist.id == req.params.id) {
-      artist = req.body;
-    }
-  });
-
+  artists[index] = req.body
 });
 
 app.put("/", (req, res) => {
