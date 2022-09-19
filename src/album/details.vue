@@ -158,9 +158,9 @@ export default {
     updateAlbum: function () {
       const router = useRoute();
       var id = router.params.id;
-      
-      delete this.album["artista"];
-      delete this.album["discografica"];
+
+    //   delete this.album["artista"];
+    //   delete this.album["discografica"];
 
       fetch("/.netlify/functions/albums/" + id, {
         headers: { "Content-Type": "application/json" },
