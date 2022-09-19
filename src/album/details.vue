@@ -28,7 +28,7 @@
             <input
               class="u-full-width"
               type="email"
-              v-model="album.artista.name"
+              v-model="album.artista.nombre"
             />
           </div>
           <div class="four columns">
@@ -36,44 +36,23 @@
             <input
               class="u-full-width"
               type="tel"
-              v-model="album.discografica.name"
+              v-model="album.discografica.nombre"
             />
           </div>
           <div class="four columns">
             <label for="phoneInput">Generos</label>
             <input class="u-full-width" type="tel" v-model="album.genero" />
           </div>
-          <router-link class="button button-primary" to="/book"
-            >Back</router-link
-          >
-          <a
-            v-if="edit"
-            class="button button-primary"
-            style="float: right"
-            v-on:click="updateAlbum()"
-            >Update</a
-          >
-          <a
-            v-if="create"
-            class="button button-primary"
-            style="float: right"
-            v-on:click="createAlbum()"
-            >Create</a
-          >
         </div>
 
         <div class="row">
           <div class="twelve columns">
             <label for="descriptionInput">Descripción</label>
-            <input
-              class="u-full-width"
-              type="text"
-              v-model="album.descripcion"
-            />
+            <textarea class="u-full-width" v-model="album.descripcion" />
           </div>
-          <router-link class="button button-primary" to="/album"
-            >Back</router-link
-          >
+          <router-link class="button button-primary" to="/album">
+            Back
+          </router-link>
           <a
             v-if="edit"
             class="button button-primary"
