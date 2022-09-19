@@ -196,7 +196,7 @@ app.get("/:id", (req, res) => {
 
 app.post("/:id", (req, res) => {
   let index = albums.findIndex((i) => i.id == req.params.id);
-  if (index != -1) res.status(404).send("Album already exits");
+  if (index == -1) res.status(404).send("Album not found");
   else {
     albums.push(req.body);
   }
@@ -204,7 +204,7 @@ app.post("/:id", (req, res) => {
 
 app.put("/", (req, res) => {
   let index = albums.findIndex((i) => i.id == req.params.id);
-  if (index == -1) res.status(404).send("Album not found");
+  if (index != -1) res.status(404).send("Album already exits");
   else {
     albums[index] = req.body;
   }

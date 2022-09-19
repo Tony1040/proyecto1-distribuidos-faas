@@ -93,7 +93,7 @@ app.get("/", (req, res) => {
 
 app.get("/:id", (req, res) => {
   let publisher = publishers.find((i) => i.id == req.params.id);
-  if (publisher == undefined) res.status(404).send("Artist not found");
+  if (publisher == undefined) res.status(404).send("Discografica no encontrada");
 
   publisher.albums = albums_data.albums.filter(
     (album) => album.id_discografica == publisher.id
@@ -103,7 +103,7 @@ app.get("/:id", (req, res) => {
 
 app.post("/:id", (req, res) => {
   let index = publishers.findIndex((i) => i.id == req.params.id);
-  if (index != -1) res.status(404).send("Artist already exits");
+  if (index == -1) res.status(404).send("Discografica no existe");
   else {
     publishers.push(req.body);
   }
@@ -111,7 +111,7 @@ app.post("/:id", (req, res) => {
 
 app.put("/", (req, res) => {
   let index = publishers.findIndex((i) => i.id == req.params.id);
-  if (index == -1) res.status(404).send("Artist not found");
+  if (index != -1) res.status(404).send("Esta discografica ya existe");
   else {
     publishers[index] = req.body;
   }
