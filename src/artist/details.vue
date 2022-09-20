@@ -37,9 +37,7 @@
               v-model="artist.fecha_nacimiento"
             />
           </div>
-          <div class="four columns">
-
-          </div>
+          <div class="four columns"></div>
           <div class="four columns">
             <label for="phoneInput">Fallecimiento</label>
             <input
@@ -48,6 +46,32 @@
               v-model="artist.fallecimiento"
             />
           </div>
+        </div>
+        <div class="row">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Genero</th>
+                <th>Fecha publicacion</th>
+                <th>Duracion</th>
+                <th>Discografica</th>
+                <th>Artista</th>
+                <th>Descripcion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="album in albums" :key="album.id">
+                <td>{{ album.nombre }}</td>
+                <td>{{ album.genero }}</td>
+                <td>{{ album.fecha_publicacion }}</td>
+                <td>{{ album.duracion }}</td>
+                <td>{{ album.discografica.nombre }}</td>
+                <td>{{ album.artista.nombre }}</td>
+                <td>{{ album.descripcion }}</td>
+              </tr>
+            </tbody>
+          </table>
           <router-link class="button button-primary" to="/artista">
             Back
           </router-link>
@@ -79,17 +103,7 @@ export default {
   data: function () {
     return {
       title: "Información de artistas",
-      album: {
-        id: 0,
-        id_artista: 0,
-        id_discografica: 0,
-        fecha_publicacion: "",
-        generos: "",
-        duracion: "",
-        nombre: "",
-        descripcion: "",
-        imagen: "",
-      },
+      albums: [],
       artist: {
         id: 0,
         nombre: "",
@@ -117,10 +131,18 @@ export default {
         .then((result) => {
           console.log("This is the result of getting artist", result);
           this.artist = result;
+        })
+        .then(() => {
+          fetch("/.netlify/functions/artistas/" + id + "/albums", {
+            headers: { Accept: "application/json" },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              this.albums = data;
+            });
         });
     },
     updateArtist: function () {
-
       delete this.artist["albums"];
 
       fetch("/.netlify/functions/artistas/" + this.artist.id, {

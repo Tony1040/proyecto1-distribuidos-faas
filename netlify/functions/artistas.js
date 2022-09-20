@@ -83,11 +83,26 @@ app.get("/:id", (req, res) => {
   res.json(artist);
 });
 
+app.get("/:id/albums", (req, res) => {
+  fetch("/.netlify/functions/albums", {
+    headers: { "Content-Type": "application/json" },
+  }).then((data) => {
+    let artist_albums = [];
+    data = data.json();
+    data.forEach((album) => {
+      if (album.id_artista == req.params.id) {
+        artist_albums.push(album);
+      }
+    });
+    res.json(artist_albums);
+  });
+});
+
 app.post("/:id", (req, res) => {
   let index = artists.findIndex((i) => i.id == req.params.id);
   if (index == -1) res.status(404).send("Artist not found");
-  
-  artists[index] = req.body
+
+  artists[index] = req.body;
   res.status(200).send("Artist updated successfully");
 });
 
