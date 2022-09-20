@@ -84,10 +84,12 @@ app.get("/:id", (req, res) => {
   res.json(artist);
 });
 
-app.get("/:id/albums", (req, res) => {
-  let data = axios.get("/.netlify/functions/albums", {
-    headers: { "Content-Type": "application/json" },
-  });
+app.get("/:id/albums", async (req, res) => {
+  let data = await axios
+    .get("/.netlify/functions/albums", {
+      headers: { "Content-Type": "application/json" },
+    })
+    .promise();
   let artist_albums = [];
   data = data.json();
   data.forEach((album) => {
