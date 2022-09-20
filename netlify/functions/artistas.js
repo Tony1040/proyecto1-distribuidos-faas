@@ -85,7 +85,7 @@ app.get("/:id", (req, res) => {
 });
 
 app.get("/:id/albums", (req, res) => {
-  fetch("/.netlify/functions/albums", {
+  axios.get("/.netlify/functions/albums", {
     headers: { "Content-Type": "application/json" },
   }).then((data) => {
     let artist_albums = [];
