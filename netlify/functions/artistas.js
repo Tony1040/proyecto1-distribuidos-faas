@@ -3,7 +3,7 @@ const express = require("express");
 const serverless = require("serverless-http");
 const exp = express();
 const bodyParser = require("body-parser");
-const axios = require('axios');
+const axios = require("axios");
 let albums_data = require("./albums");
 
 let artists = [
@@ -85,18 +85,17 @@ app.get("/:id", (req, res) => {
 });
 
 app.get("/:id/albums", (req, res) => {
-  axios.get("/.netlify/functions/albums", {
+  let data = axios.get("/.netlify/functions/albums", {
     headers: { "Content-Type": "application/json" },
-  }).then((data) => {
-    let artist_albums = [];
-    data = data.json();
-    data.forEach((album) => {
-      if (album.id_artista == req.params.id) {
-        artist_albums.push(album);
-      }
-    });
-    res.json(artist_albums);
   });
+  let artist_albums = [];
+  data = data.json();
+  data.forEach((album) => {
+    if (album.id_artista == req.params.id) {
+      artist_albums.push(album);
+    }
+  });
+  res.json(artist_albums);
 });
 
 app.post("/:id", (req, res) => {
