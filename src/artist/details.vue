@@ -48,6 +48,7 @@
           </div>
         </div>
         <div class="row">
+            <h2>Albums</h2>
           <table>
             <thead>
               <tr>
@@ -63,7 +64,7 @@
             <tbody>
               <tr v-for="album in albums" :key="album.id">
                 <td>{{ album.nombre }}</td>
-                <td>{{ album.genero }}</td>
+                <td>{{ album.generos }}</td>
                 <td>{{ album.fecha_publicacion }}</td>
                 <td>{{ album.duracion }}</td>
                 <td>{{ album.discografica.nombre }}</td>
