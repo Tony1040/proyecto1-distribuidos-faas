@@ -122,7 +122,7 @@ export default {
     this.findArtist(route.params.id);
   },
   methods: {
-    findAlbum: function (id) {
+    findArtist: function (id) {
       fetch("/.netlify/functions/artistas/" + id, {
         headers: { Accept: "application/json" },
       })
