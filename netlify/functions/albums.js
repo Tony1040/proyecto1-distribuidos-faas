@@ -13,14 +13,17 @@ let albums = JSON.parse(fs.readFileSync(file_location, "utf8"));
 
 const app = express.Router();
 app.get("/", (req, res) => {
-  console.log(albums);
-  albums.forEach((album) => {
-    album.discografica = publisher_data.publishers.find(
-      (i) => i.id == album.id_discografica
-    );
-    album.artista = artist_data.artists.find((i) => i.id == album.id_artista);
+  // console.log(albums);
+  // albums.forEach((album) => {
+  //   album.discografica = publisher_data.publishers.find(
+  //     (i) => i.id == album.id_discografica
+  //   );
+  //   album.artista = artist_data.artists.find((i) => i.id == album.id_artista);
+  // });
+  // res.json(albums);
+  fs.readdirSync(process.env.LAMBDA_TASK_ROOT).forEach(file => {
+    console.log(file);
   });
-  res.json(albums);
 });
 
 app.get("/:id", (req, res) => {
