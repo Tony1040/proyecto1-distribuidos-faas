@@ -30,7 +30,8 @@ app.get("/", (req, res) => {
     );
     album.artista = artist_data.artists.find((i) => i.id == album.id_artista);
   });
-  res.json(albums);
+  res.json(__dirname + file_location);
+  // res.json(albums);
 });
 
 app.get("/:id", (req, res) => {
