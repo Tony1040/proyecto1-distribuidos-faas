@@ -7,7 +7,7 @@ const publisher_data = require("./discograficas");
 const artist_data = require("./artistas");
 const fs = require('fs');
 
-const file_location = "/netlify/data/albums.json"
+const file_location = process.env.LAMBDA_TASK_ROOT + "/../data/albums.json"
 let albums = [];
 
 const readAlbums = () => {
