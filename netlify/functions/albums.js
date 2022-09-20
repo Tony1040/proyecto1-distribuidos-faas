@@ -194,6 +194,13 @@ app.get("/:id", (req, res) => {
   res.json(album);
 });
 
+app.get("/artistas/:id", (req, res) => {
+  let art_albums = albums.filter((album) => album.id_artista == req.params.id);
+  if (art_albums == undefined) res.status(404).send("No albums found");
+
+  res.json(art_albums);
+});
+
 app.post("/:id", (req, res) => {
   let index = albums.findIndex((i) => i.id == req.params.id);
   if (index == -1) res.status(404).send("Album not found");
