@@ -38,6 +38,9 @@
             />
           </div>
           <div class="four columns">
+
+          </div>
+          <div class="four columns">
             <label for="phoneInput">Fallecimiento</label>
             <input
               class="u-full-width"
@@ -134,7 +137,7 @@ export default {
         }
       });
     },
-    createArtista: function () {
+    createArtist: function () {
       fetch("/.netlify/functions/artistas", {
         headers: { "Content-Type": "application/json" },
         method: "PUT",
