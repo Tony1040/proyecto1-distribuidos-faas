@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
   //   album.artista = artist_data.artists.find((i) => i.id == album.id_artista);
   // });
   // res.json(albums);
-  fs.readdirSync(process.env.LAMBDA_TASK_ROOT + "/data").forEach(file => {
+  fs.readdirSync(process.env.LAMBDA_TASK_ROOT + "/netlify/data").forEach(file => {
     console.log(file);
   });
 });
