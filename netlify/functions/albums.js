@@ -16,7 +16,7 @@ const readAlbums = () => {
       albums = JSON.parse(data)
   });
 }
-// readAlbums();
+readAlbums();
 
 const saveAlbums = () => {
   let data = JSON.stringify(albums)
@@ -31,11 +31,11 @@ app.get("/", (req, res) => {
     );
     album.artista = artist_data.artists.find((i) => i.id == album.id_artista);
   });
-  let path1 = path.resolve(process.env.LAMBDA_TASK_ROOT + "/../data/albums.json");
-  res.status(200).send({
-    "path1": path.resolve(process.env.LAMBDA_TASK_ROOT + "/../data/albums.json")
-  });
-  // res.json(albums);
+  // let path1 = path.resolve(process.env.LAMBDA_TASK_ROOT + "/../data/albums.json");
+  // res.status(200).send({
+  //   "path1": path.resolve(process.env.LAMBDA_TASK_ROOT + "/../data/albums.json")
+  // });
+  res.json(albums);
 });
 
 app.get("/:id", (req, res) => {
