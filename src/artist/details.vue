@@ -30,22 +30,6 @@
         </div>
         <div class="row">
           <div class="four columns">
-            <label v-if="show" for="emailInput">Artista</label>
-            <label v-else for="emailInput">Id Artista</label>
-            <input
-              v-if="show"
-              class="u-full-width"
-              type="email"
-              v-model="album.artista.nombre"
-            />
-            <input
-              v-else
-              class="u-full-width"
-              type="email"
-              v-model="album.id_artista"
-            />
-          </div>
-          <div class="four columns">
             <label for="phoneInput">Fecha de nacimiento</label>
             <input
               class="u-full-width"
