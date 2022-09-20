@@ -1,40 +1,25 @@
 "use strict";
+const fs = require("fs");
 const express = require("express");
 const serverless = require("serverless-http");
 const exp = express();
 const bodyParser = require("body-parser");
 const publisher_data = require("./discograficas");
 const artist_data = require("./artistas");
-const fs = require('fs');
 let path = require("path");
 
-const file_location = process.env.LAMBDA_TASK_ROOT + "/../data/albums.json"
-let albums = [];
-
-const readAlbums = () => {
-  fs.readFile(file_location, 'utf8', (err, data) => {
-      albums = JSON.parse(data)
-  });
-}
-readAlbums();
-
-const saveAlbums = () => {
-  let data = JSON.stringify(albums)
-  fs.writeFileSync(__dirname + file_location, data)
-}
+const file_location = process.env.LAMBDA_TASK_ROOT + "/../data/albums.json";
+let albums = JSON.parse(fs.readFileSync(file_location, "utf8"));
 
 const app = express.Router();
 app.get("/", (req, res) => {
+  console.log(albums);
   albums.forEach((album) => {
     album.discografica = publisher_data.publishers.find(
       (i) => i.id == album.id_discografica
     );
     album.artista = artist_data.artists.find((i) => i.id == album.id_artista);
   });
-  // let path1 = path.resolve(process.env.LAMBDA_TASK_ROOT + "/../data/albums.json");
-  // res.status(200).send({
-  //   "path1": path.resolve(process.env.LAMBDA_TASK_ROOT + "/../data/albums.json")
-  // });
   res.json(albums);
 });
 
@@ -64,7 +49,7 @@ app.post("/:id", (req, res) => {
   let index = albums.findIndex((i) => i.id == req.params.id);
   if (index == -1) res.status(404).send("Album not found");
 
-  albums[index] = req.body
+  albums[index] = req.body;
   res.status(200).send("Album updated successfully");
 });
 
