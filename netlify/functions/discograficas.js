@@ -106,7 +106,7 @@ app.post("/:id", (req, res) => {
   let index = publishers.findIndex((i) => i.id == req.params.id);
   if (index == -1) res.status(404).send("Discografica no existe");
 
-  publishers[i] = req.body;
+  publishers[index] = req.body;
   res.status(200).send("Discografica actualizada existosamente");
 });
 

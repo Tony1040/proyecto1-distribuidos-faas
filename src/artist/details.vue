@@ -48,8 +48,8 @@
           </div>
         </div>
         <div class="row">
-            <h2>Albums</h2>
-          <table>
+            <h2 v-if="show">Albums</h2>
+          <table v-if="show">
             <thead>
               <tr>
                 <th>Nombre</th>
@@ -57,7 +57,6 @@
                 <th>Fecha publicacion</th>
                 <th>Duracion</th>
                 <th>Discografica</th>
-                <th>Artista</th>
                 <th>Descripcion</th>
               </tr>
             </thead>
@@ -68,7 +67,6 @@
                 <td>{{ album.fecha_publicacion }}</td>
                 <td>{{ album.duracion }}</td>
                 <td>{{ album.discografica.nombre }}</td>
-                <td>{{ album.artista.nombre }}</td>
                 <td>{{ album.descripcion }}</td>
               </tr>
             </tbody>
