@@ -15,7 +15,7 @@ const readAlbums = () => {
       albums = JSON.parse(data)
   });
 }
-readAlbums();
+// readAlbums();
 
 const saveAlbums = () => {
   let data = JSON.stringify(albums)
