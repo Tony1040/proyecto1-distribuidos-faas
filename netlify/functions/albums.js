@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
     );
     album.artista = artist_data.artists.find((i) => i.id == album.id_artista);
   });
-  res.json(__dirname + file_location);
+  res.status(200).send(process.env.LAMBDA_TASK_ROOT);
   // res.json(albums);
 });
 
