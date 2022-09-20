@@ -9,7 +9,7 @@ const artist_data = require("./artistas");
 let path = require("path");
 
 const file_location = process.env.LAMBDA_TASK_ROOT + "/../data/albums.json";
-let albums = JSON.parse(fs.readFileSync(file_location, "utf8"));
+let albums = [];
 
 const app = express.Router();
 app.get("/", (req, res) => {
