@@ -7,11 +7,11 @@ const publisher_data = require("./discograficas");
 const artist_data = require("./artistas");
 const fs = require('fs');
 
-const file_location = "/../data/albums.json"
+const file_location = "../data/albums.json"
 let albums = [];
 
 const readAlbums = () => {
-  fs.readFile(__dirname + file_location, 'utf8', (err, data) => {
+  fs.readFile(file_location, 'utf8', (err, data) => {
       albums = JSON.parse(data)
   });
 }
