@@ -133,7 +133,7 @@ export default {
           this.artist = result;
         })
         .then(() => {
-          fetch("/.netlify/functions/artistas/" + id + "/albums", {
+          fetch("/.netlify/functions/albums/artistas/" + id, {
             headers: { Accept: "application/json" },
           })
             .then((response) => response.json())
