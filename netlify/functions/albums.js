@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const publisher_data = require("./discograficas");
 const artist_data = require("./artistas");
 const fs = require('fs');
+let path = require("path");
 
 const file_location = process.env.LAMBDA_TASK_ROOT + "/../data/albums.json"
 let albums = [];
@@ -30,7 +31,10 @@ app.get("/", (req, res) => {
     );
     album.artista = artist_data.artists.find((i) => i.id == album.id_artista);
   });
-  res.status(200).send(process.env.LAMBDA_TASK_ROOT);
+  let path1 = path.resolve(process.env.LAMBDA_TASK_ROOT + "/../data/albums.json");
+  res.status(200).send({
+    "path1": path.resolve(process.env.LAMBDA_TASK_ROOT + "/../data/albums.json")
+  });
   // res.json(albums);
 });
 
