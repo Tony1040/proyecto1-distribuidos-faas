@@ -55,7 +55,7 @@
             <thead>
               <tr>
                 <th>Nombre</th>
-                <th>Genero</th>
+                <th>Generos</th>
                 <th>Fecha publicacion</th>
                 <th>Duracion</th>
                 <th>Discografica</th>

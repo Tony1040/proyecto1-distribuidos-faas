@@ -7,7 +7,7 @@
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>Genero</th>
+            <th>Generos</th>
             <th>Fecha publicacion</th>
             <th>Duracion</th>
             <th>Discografica</th>
@@ -18,7 +18,7 @@
         <tbody>
           <tr v-for="album in albums" :key="album.id">
             <td>{{ album.nombre }}</td>
-            <td>{{ album.genero }}</td>
+            <td>{{ album.generos }}</td>
             <td>{{ album.fecha_publicacion }}</td>
             <td>{{ album.duracion }}</td>
             <td>{{ album.discografica.nombre }}</td>
