@@ -3,8 +3,8 @@ const express = require("express");
 const serverless = require("serverless-http");
 const exp = express();
 const bodyParser = require("body-parser");
-const axios = require("axios");
 let albums_data = require("./albums");
+const publisher_data = require("./discograficas");
 
 let artists = [
   {
@@ -82,6 +82,20 @@ app.get("/:id", (req, res) => {
     (album) => album.id_artista === artist.id
   );
   res.json(artist);
+});
+
+app.get("/:id/albums", (req, res) => {
+  let art_albums = albums_data.albums.filter((album) => album.id_artista == req.params.id);
+  if (art_albums == undefined) res.status(404).send("No albums found");
+
+  art_albums.forEach(album => {
+    let publisher = publisher_data.publishers.find(
+      (i) => i.id == album.id_discografica
+    );
+    album.discografica = publisher;
+  });
+
+  res.json(art_albums);
 });
 
 app.post("/:id", (req, res) => {

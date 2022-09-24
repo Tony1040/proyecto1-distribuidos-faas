@@ -4,6 +4,7 @@ const serverless = require("serverless-http");
 const exp = express();
 const bodyParser = require("body-parser");
 const albums_data = require("./albums");
+const artist_data = require("./artistas");
 
 let publishers = [
   {
@@ -100,6 +101,20 @@ app.get("/:id", (req, res) => {
     (album) => album.id_discografica == publisher.id
   );
   res.json(publisher);
+});
+
+app.get("/:id/albums", (req, res) => {
+  let disc_albums = albums_data.albums.filter((album) => album.id_artista == req.params.id);
+  if (disc_albums == undefined) res.status(404).send("No albums found");
+
+  disc_albums.forEach(album => {
+    let artista = artist_data.artists.find(
+      (i) => i.id == album.id_artista
+    );
+    album.artista = artista;
+  });
+
+  res.json(disc_albums);
 });
 
 app.post("/:id", (req, res) => {

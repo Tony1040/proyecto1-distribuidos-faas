@@ -48,7 +48,9 @@
           </div>
         </div>
         <div class="row">
-            <h2 v-if="show">Albums</h2>
+          <br />
+          <br />
+          <h2 v-if="show">Albums</h2>
           <table v-if="show">
             <thead>
               <tr>
@@ -58,6 +60,7 @@
                 <th>Duracion</th>
                 <th>Discografica</th>
                 <th>Descripcion</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -68,6 +71,11 @@
                 <td>{{ album.duracion }}</td>
                 <td>{{ album.discografica.nombre }}</td>
                 <td>{{ album.descripcion }}</td>
+                <td>
+                  <router-link class="button" :to="'/album/show/' + album.id"
+                    >Show</router-link
+                  >
+                </td>
               </tr>
             </tbody>
           </table>

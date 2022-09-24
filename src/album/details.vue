@@ -30,14 +30,18 @@
         </div>
         <div class="row">
           <div class="four columns">
+            <label for="phoneInput">Generos</label>
+            <input class="u-full-width" type="tel" v-model="album.generos" />
+          </div>
+          <div class="four columns">
             <label v-if="show" for="emailInput">Artista</label>
             <label v-else for="emailInput">Id Artista</label>
-            <input
+            <router-link
               v-if="show"
-              class="u-full-width"
-              type="email"
-              v-model="album.artista.nombre"
-            />
+              class="button"
+              :to="'/artista/show/' + album.artista.id"
+              >{{ album.artista.nombre }}</router-link
+            >
             <input
               v-else
               class="u-full-width"
@@ -46,24 +50,20 @@
             />
           </div>
           <div class="four columns">
-            <label v-if="show" for="phoneInput">Discografica</label>
+            <label v-if="show">Discografica</label>
             <label v-else for="phoneInput">Id Discografica</label>
-            <input
+            <router-link
               v-if="show"
-              class="u-full-width"
-              type="tel"
-              v-model="album.discografica.nombre"
-            />
+              class="button"
+              :to="'/discografica/show/' + album.discografica.id"
+              >{{ album.discografica.nombre }}</router-link
+            >
             <input
               v-else
               class="u-full-width"
               type="tel"
               v-model="album.id_discografica"
             />
-          </div>
-          <div class="four columns">
-            <label for="phoneInput">Generos</label>
-            <input class="u-full-width" type="tel" v-model="album.generos" />
           </div>
         </div>
 
@@ -114,9 +114,11 @@ export default {
         descripcion: "",
         imagen: "",
         artista: {
+          id: "",
           nombre: "",
         },
         discografica: {
+          id: "",
           nombre: "",
         },
       },
@@ -168,7 +170,7 @@ export default {
         body: JSON.stringify(this.album),
       }).then((data) => {
         if (data.status != 200) {
-            console.log(data);
+          console.log(data);
           alert(JSON.stringify(data));
         } else {
           alert("Album updated correctly");
