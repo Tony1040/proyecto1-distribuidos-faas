@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 let albums_data = require("./albums");
 const publisher_data = require("./discograficas");
 
+const file_location = "/../data/artistas.json";
 let artists = [
   {
     id: 1,
@@ -64,6 +65,24 @@ let artists = [
   },
 ];
 
+const RUN_NETLIFY_CLOUD = true;
+function readArtists() {
+  if (!RUN_NETLIFY_CLOUD) {
+    console.log(__dirname + file_location);
+    fs.readFile(__dirname + file_location, "utf8", (err, data) => {
+      artists = JSON.parse(data);
+    });
+  }
+}
+readArtists();
+
+function saveArtists() {
+  if (!RUN_NETLIFY_CLOUD) {
+    let data = JSON.stringify(artists);
+    fs.writeFileSync(__dirname + file_location, data);
+  }
+}
+
 const app = express.Router();
 
 app.get("/", (req, res) => {
@@ -85,10 +104,12 @@ app.get("/:id", (req, res) => {
 });
 
 app.get("/:id/albums", (req, res) => {
-  let art_albums = albums_data.albums.filter((album) => album.id_artista == req.params.id);
+  let art_albums = albums_data.albums.filter(
+    (album) => album.id_artista == req.params.id
+  );
   if (art_albums == undefined) res.status(404).send("No albums found");
 
-  art_albums.forEach(album => {
+  art_albums.forEach((album) => {
     let publisher = publisher_data.publishers.find(
       (i) => i.id == album.id_discografica
     );
@@ -103,6 +124,7 @@ app.post("/:id", (req, res) => {
   if (index == -1) res.status(404).send("Artist not found");
 
   artists[index] = req.body;
+  saveArtists();
   res.status(200).send("Artist updated successfully");
 });
 
@@ -111,6 +133,7 @@ app.put("/", (req, res) => {
   if (index != -1) res.status(303).send("Artist already exits");
   else {
     artists.push(req.body);
+    saveArtists();
     res.status(200).send("Artist added");
   }
 });
@@ -124,6 +147,7 @@ app.delete("/:id", (req, res) => {
     albums_data.albums = albums_data.albums.filter(
       (album) => album.id_artista != req.params.id
     );
+    saveArtists();
     res.status(200).send("Artist deleted");
   }
 });

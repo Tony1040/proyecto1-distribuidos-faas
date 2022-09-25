@@ -2,7 +2,7 @@
 <template>
   <div class="row">
     <div class="eleven column" style="margin-top: 3%">
-      <div  v-if="show" class="row">
+      <div v-if="show" class="row">
         <img
           v-bind:src="`/netlify/functions/` + artist.imagen"
           height="700"
@@ -10,7 +10,7 @@
         />
       </div>
       <h2 style="margin-top: 3%">{{ title }}</h2>
-      <form>
+      <form enctype="multipart/form-data">
         <div class="row">
           <div class="four columns">
             <label for="titleInput">Id</label>
@@ -53,6 +53,16 @@
               v-model="artist.fallecimiento"
             />
           </div>
+        </div>
+        <div v-if="create || edit" style="margin-top: 3%">
+          <h5>Seleccione una imagen</h5>
+          <img
+            v-bind:src="this.imagePreview"
+            class="uploading-image"
+            height="200"
+            width="200"
+          />
+          <input type="file" accept="image/jpeg" @change="uploadImage" />
         </div>
         <div class="row">
           <br />
@@ -130,11 +140,14 @@ export default {
           nombre: "",
         },
       },
+      imagePreview: null,
     };
   },
   created() {
     const route = useRoute();
-    this.findArtist(route.params.id);
+    if (this.show || this.edit) {
+      this.findArtist(route.params.id);
+    }
   },
   methods: {
     findArtist: function (id) {
@@ -160,7 +173,7 @@ export default {
       delete this.artist["albums"];
 
       fetch("/.netlify/functions/artistas/" + this.artist.id, {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "aplication/json" },
         method: "POST",
         body: JSON.stringify(this.artist),
       }).then((data) => {
@@ -175,7 +188,7 @@ export default {
     },
     createArtist: function () {
       fetch("/.netlify/functions/artistas", {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "aplication/json" },
         method: "PUT",
         body: JSON.stringify(this.artist),
       }).then((data) => {
@@ -189,6 +202,15 @@ export default {
           this.$router.push("/artista");
         }
       });
+    },
+    uploadImage(e) {
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = (e) => {
+        this.imagePreview = e.target.result;
+        console.log(this.imagePreview);
+      };
     },
   },
 };

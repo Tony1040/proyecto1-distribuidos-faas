@@ -2,7 +2,7 @@
 <template>
   <div class="row">
     <div class="eleven column" style="margin-top: 3%">
-      <div  v-if="show" class="row">
+      <div v-if="show" class="row">
         <img
           v-bind:src="`/netlify/functions/` + publisher.imagen"
           height="300"
@@ -58,6 +58,16 @@
             <label for="phoneInput">Pais de origen</label>
             <input class="u-full-width" type="tel" v-model="publisher.pais" />
           </div>
+        </div>
+        <div v-if="create || edit" style="margin-top: 3%">
+          <h5>Seleccione una imagen</h5>
+          <img
+            v-bind:src="this.imagePreview"
+            class="uploading-image"
+            height="200"
+            width="200"
+          />
+          <input type="file" accept="image/jpeg" @change="uploadImage" />
         </div>
         <div class="row">
           <br />
@@ -132,11 +142,14 @@ export default {
         pais: "",
         imagen: "",
       },
+      imagePreview: null,
     };
   },
   created() {
     const route = useRoute();
-    this.findPublisher(route.params.id);
+    if (this.show || this.edit) {
+      this.findPublisher(route.params.id);
+    }
   },
   methods: {
     findPublisher: function (id) {
@@ -191,6 +204,15 @@ export default {
           this.$router.push("/discografica");
         }
       });
+    },
+    uploadImage(e) {
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = (e) => {
+        this.imagePreview = e.target.result;
+        console.log(this.imagePreview);
+      };
     },
   },
 };

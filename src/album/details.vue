@@ -74,6 +74,16 @@
             />
           </div>
         </div>
+        <div v-if="create || edit" style="margin-top: 3%">
+          <h5>Seleccione una imagen</h5>
+          <img
+            v-bind:src="this.imagePreview"
+            class="uploading-image"
+            height="200"
+            width="200"
+          />
+          <input type="file" accept="image/jpeg" @change="uploadImage" />
+        </div>
 
         <div class="row">
           <div class="twelve columns">
@@ -129,6 +139,7 @@ export default {
           id: "",
           nombre: "",
         },
+        imagePreview: null,
       },
       artist: {
         id: 0,
@@ -152,7 +163,9 @@ export default {
   },
   created() {
     const route = useRoute();
-    this.findAlbum(route.params.id);
+    if (this.show || this.edit) {
+      this.findAlbum(route.params.id);
+    }
   },
   methods: {
     findAlbum: function (id) {
@@ -203,6 +216,15 @@ export default {
           this.$router.push("/album");
         }
       });
+    },
+    uploadImage(e) {
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = (e) => {
+        this.imagePreview = e.target.result;
+        console.log(this.imagePreview);
+      };
     },
   },
 };

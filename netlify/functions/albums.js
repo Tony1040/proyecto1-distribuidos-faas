@@ -171,9 +171,9 @@ let albums = [
   },
 ];
 
-const RUN_NETLIFY = true;
+const RUN_NETLIFY_CLOUD = true;
 function readAlbums() {
-  if (!RUN_NETLIFY) {
+  if (!RUN_NETLIFY_CLOUD) {
     console.log(__dirname + file_location);
     fs.readFile(__dirname + file_location, "utf8", (err, data) => {
       albums = JSON.parse(data);
@@ -183,7 +183,7 @@ function readAlbums() {
 readAlbums();
 
 function saveAlbums() {
-  if (!RUN_NETLIFY) {
+  if (!RUN_NETLIFY_CLOUD) {
     let data = JSON.stringify(albums);
     fs.writeFileSync(__dirname + file_location, data);
   }

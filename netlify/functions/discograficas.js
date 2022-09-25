@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const albums_data = require("./albums");
 const artist_data = require("./artistas");
 
+const file_location = "/../data/discograficas.json";
+
 let publishers = [
   {
     id: 1,
@@ -81,6 +83,24 @@ let publishers = [
   },
 ];
 
+const RUN_NETLIFY_CLOUD = true;
+function readPublishers() {
+  if (!RUN_NETLIFY_CLOUD) {
+    console.log(__dirname + file_location);
+    fs.readFile(__dirname + file_location, "utf8", (err, data) => {
+      artists = JSON.parse(data);
+    });
+  }
+}
+readPublishers();
+
+function savePublishers() {
+  if (!RUN_NETLIFY_CLOUD) {
+    let data = JSON.stringify(publishers);
+    fs.writeFileSync(__dirname + file_location, data);
+  }
+}
+
 const app = express.Router();
 
 app.get("/", (req, res) => {
@@ -122,6 +142,7 @@ app.post("/:id", (req, res) => {
   if (index == -1) res.status(404).send("Discografica no existe");
 
   publishers[index] = req.body;
+  savePublishers();
   res.status(200).send("Discografica actualizada existosamente");
 });
 
@@ -130,6 +151,7 @@ app.put("/", (req, res) => {
   if (index != -1) res.status(303).send("Esta discografica ya existe");
   else {
     publishers.push(req.body);
+    savePublishers();
     res.status(200).send("Discografica agregada exitosamente");
   }
 });
@@ -143,6 +165,7 @@ app.delete("/:id", (req, res) => {
     albums_data.albums = albums_data.albums.filter(
       (album) => album.id_discografica != req.params.id
     );
+    savePublishers();
     res.status(200).send("Discografica eliminada exitosamente")
   }
 });
