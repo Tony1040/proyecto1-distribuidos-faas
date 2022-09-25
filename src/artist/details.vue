@@ -2,7 +2,7 @@
 <template>
   <div class="row">
     <div class="eleven column" style="margin-top: 3%">
-      <div class="row">
+      <div  v-if="show" class="row">
         <img
           v-bind:src="`/netlify/functions/` + artist.imagen"
           height="700"
