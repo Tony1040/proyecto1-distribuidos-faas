@@ -76,6 +76,7 @@ function readArtists() {
 }
 readArtists();
 
+
 function saveArtists() {
   if (!RUN_NETLIFY_CLOUD == false) {
     let data = JSON.stringify(artists);
