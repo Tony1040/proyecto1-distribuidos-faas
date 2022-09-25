@@ -67,7 +67,7 @@ let artists = [
 
 const RUN_NETLIFY_CLOUD = true;
 function readArtists() {
-  if (!RUN_NETLIFY_CLOUD) {
+  if (RUN_NETLIFY_CLOUD == false) {
     console.log(__dirname + file_location);
     fs.readFile(__dirname + file_location, "utf8", (err, data) => {
       artists = JSON.parse(data);
@@ -77,7 +77,7 @@ function readArtists() {
 readArtists();
 
 function saveArtists() {
-  if (!RUN_NETLIFY_CLOUD) {
+  if (!RUN_NETLIFY_CLOUD == false) {
     let data = JSON.stringify(artists);
     fs.writeFileSync(__dirname + file_location, data);
   }

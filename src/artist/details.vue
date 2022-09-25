@@ -156,7 +156,6 @@ export default {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log("This is the result of getting artist", result);
           this.artist = result;
         })
         .then(() => {
