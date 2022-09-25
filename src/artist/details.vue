@@ -136,9 +136,6 @@ export default {
         origen: "",
         instrumentos: "",
         imagen: "",
-        albums: {
-          nombre: "",
-        },
       },
       imagePreview: null,
     };
@@ -172,7 +169,7 @@ export default {
       delete this.artist["albums"];
 
       fetch("/.netlify/functions/artistas/" + this.artist.id, {
-        headers: { "Content-Type": "aplication/json" },
+        headers: { "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify(this.artist),
       }).then((data) => {
@@ -187,7 +184,7 @@ export default {
     },
     createArtist: function () {
       fetch("/.netlify/functions/artistas", {
-        headers: { "Content-Type": "aplication/json" },
+        headers: { "Content-Type": "application/json" },
         method: "PUT",
         body: JSON.stringify(this.artist),
       }).then((data) => {
