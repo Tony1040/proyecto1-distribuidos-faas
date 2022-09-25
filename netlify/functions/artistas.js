@@ -77,7 +77,7 @@ function readArtists() {
 readArtists();
 
 function saveArtists() {
-  if (!RUN_NETLIFY_CLOUD == false) {
+  if (RUN_NETLIFY_CLOUD == false) {
     let data = JSON.stringify(artists);
     fs.writeFileSync(__dirname + file_location, data);
   }

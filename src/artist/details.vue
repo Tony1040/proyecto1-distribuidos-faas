@@ -188,7 +188,6 @@ export default {
         method: "PUT",
         body: JSON.stringify(this.artist),
       }).then((data) => {
-        console.log(data);
         if (data.status == 303) {
           alert(
             "There is already an object with this id, please use a different one"
