@@ -60,7 +60,7 @@ export default {
     deleteArtist(id) {
       fetch("/.netlify/functions/artistas/" + id, {
         headers: { "Content-Type": "application/json" },
-        method: "POST",
+        method: "DELETE",
         body: JSON.stringify({ _method: "DELETE" }),
       }).then((result) => {
         this.allArtists();
