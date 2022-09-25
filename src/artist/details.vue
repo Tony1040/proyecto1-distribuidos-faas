@@ -10,7 +10,7 @@
         />
       </div>
       <h2 style="margin-top: 3%">{{ title }}</h2>
-      <form enctype="multipart/form-data">
+      <form>
         <div class="row">
           <div class="four columns">
             <label for="titleInput">Id</label>
